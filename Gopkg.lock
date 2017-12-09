@@ -123,12 +123,6 @@
 
 [[projects]]
   branch = "master"
-  name = "github.com/rodrigodealer/realtime"
-  packages = ["es","handlers","models","services","tracing"]
-  revision = "dedb387b227d294211cd34c0d329a827fbba2626"
-
-[[projects]]
-  branch = "master"
   name = "github.com/stretchr/objx"
   packages = ["."]
   revision = "1a9d0bb9f541897e62256577b352fdbc1fb4fd94"
@@ -146,6 +140,12 @@
   revision = "dc871a5d77e227f5bbf6545176ef3eeebf87e76e"
 
 [[projects]]
+  branch = "v2"
+  name = "gopkg.in/mgo.v2"
+  packages = [".","bson","internal/json","internal/sasl","internal/scram"]
+  revision = "3f83fa5005286a7fe593b055f0d7771a7dce4655"
+
+[[projects]]
   name = "gopkg.in/olivere/elastic.v5"
   packages = [".","config","uritemplates"]
   revision = "79ff368708b3a2a9da641dc831d95fd0782bf4ef"
@@ -154,6 +154,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "cdd7e6e6b2de953b88cc4cdd3a579ed819d0364e9a57baaa223d22de491d0cb4"
+  inputs-digest = "e9a623290f4a3bc23ca250ff3c9ffbb73515800c2a0672b301e615c335a4bb7b"
   solver-name = "gps-cdcl"
   solver-version = 1
