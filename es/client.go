@@ -5,6 +5,7 @@ import (
 	"log"
 	"os"
 
+	"github.com/rodrigodealer/whiplash/util"
 	elastic "gopkg.in/olivere/elastic.v5"
 )
 
@@ -18,7 +19,7 @@ type EsClient struct {
 }
 
 func (e *EsClient) Connect() {
-	var url = config(os.Getenv("ELASTICSEARCH_URL"))
+	var url = util.Config(os.Getenv("ELASTICSEARCH_URL"))
 	client, err := elastic.NewClient(elastic.SetURL(url), elastic.SetSniff(false))
 	if err != nil {
 		log.Panicf("Error trying to connect to ElasticSearch: \n %s \n %s", url, err)
@@ -30,7 +31,7 @@ func (e *EsClient) Connect() {
 func (e *EsClient) Ping() int {
 	if e.Client != nil {
 		ctx := context.Background()
-		var url = config(os.Getenv("ELASTICSEARCH_URL"))
+		var url = util.Config(os.Getenv("ELASTICSEARCH_URL"))
 		info, code, _ := e.Client.Ping(url).Do(ctx)
 		log.Printf("Elasticsearch returned with code %d and version %s", code, info.Version.Number)
 		return code

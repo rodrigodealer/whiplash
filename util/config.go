@@ -1,8 +1,8 @@
-package es
+package util
 
 import "os"
 
-func config(url string) string {
+func Config(url string) string {
 	if url != "" {
 		return url
 	}

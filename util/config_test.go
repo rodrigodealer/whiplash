@@ -1,4 +1,4 @@
-package es
+package util
 
 import (
 	"os"
@@ -8,13 +8,13 @@ import (
 )
 
 func TestConfigReturnIfNotEmpty(t *testing.T) {
-	var value = config("bla")
+	var value = Config("bla")
 
 	assert.Equal(t, value, "bla")
 }
 
 func TestConfigReturnIfEmpty(t *testing.T) {
-	var value = config("")
+	var value = Config("")
 
 	assert.Equal(t, value, "http://127.0.0.1:9200")
 }
