@@ -1,0 +1,26 @@
+version: '2.1'
+services:
+  elasticsearch1:
+    image: rodrigodealer/elasticsearch-nopwd:5.5.1
+    container_name: elasticsearch1
+    healthcheck:
+      test: "exit 0"
+    environment:
+      - cluster.name=docker-cluster
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    mem_limit: 1g
+    volumes:
+      - esdata1:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
+
+volumes:
+  esdata1:
+    driver: local
+  esdata2:
+    driver: local
