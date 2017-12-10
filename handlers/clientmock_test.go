@@ -18,11 +18,13 @@ func (o esClientMock) Connect() {
 
 type mongoClientMock struct {
 	mock.Mock
+	err error
 }
 
 func (o mongoClientMock) Connect() {
 }
 
 func (o mongoClientMock) Ping() error {
-	return nil
+	args := o.Called()
+	return args.Error(0)
 }

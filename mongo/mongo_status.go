@@ -15,8 +15,11 @@ func HealthcheckMongoDb(services []models.HealthcheckServices,
 		code = 500
 		status = models.Failed
 	}
-
 	services = append(services, models.HealthcheckServices{Name: "mongodb", State: status, Code: code})
+	if healthcheck.Status == models.Working {
+		healthcheck.Status = status
+	}
+
 	healthcheck.Services = services
 	return healthcheck
 }

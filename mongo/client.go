@@ -3,6 +3,7 @@ package mongo
 import (
 	"errors"
 	"log"
+	"time"
 
 	mgo "gopkg.in/mgo.v2"
 )
@@ -17,12 +18,14 @@ type MongoConnection struct {
 }
 
 func (m *MongoConnection) Connect() {
-	session, err := mgo.Dial("localhost:27017")
+	session, err := mgo.DialWithTimeout("localhost:27017", 1*time.Second)
 	if err != nil {
-		log.Panic("Could not connect to MongoDB:\n", err.Error())
+		log.Print("Could not connect to MongoDB:\n", err.Error())
 	}
-	session.SetMode(mgo.Monotonic, true)
-	m.Session = session
+	if session != nil {
+		session.SetMode(mgo.Monotonic, true)
+		m.Session = session
+	}
 }
 
 func (m *MongoConnection) Ping() error {

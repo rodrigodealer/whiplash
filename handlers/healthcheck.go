@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"encoding/json"
+	"log"
 	"net/http"
 
 	"github.com/rodrigodealer/whiplash/es"
@@ -16,6 +17,7 @@ func HealthcheckHandler(connection es.ElasticSearch,
 		var healthcheck = models.HealthcheckStatus{Status: models.Working, Services: services}
 		healthcheck = es.HealthcheckElasticsearch(healthcheck.Services, healthcheck, connection)
 		healthcheck = mongo.HealthcheckMongoDb(healthcheck.Services, healthcheck, mongoConnection)
+		log.Print(healthcheck)
 		if healthcheck.Status == models.Failed {
 			w.WriteHeader(http.StatusInternalServerError)
 			json.NewEncoder(w).Encode(healthcheck)

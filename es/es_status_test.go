@@ -16,7 +16,7 @@ func TestSuccessfulHealthcheck(t *testing.T) {
 
 	var status = HealthcheckElasticsearch(services, healthcheck, client)
 
-	assert.Equal(t, status.Status, models.Working)
+	assert.Equal(t, models.Working, status.Status)
 
 }
 
@@ -28,7 +28,7 @@ func TestFailedHealthcheck(t *testing.T) {
 
 	var status = HealthcheckElasticsearch(services, healthcheck, client)
 
-	assert.Equal(t, status.Status, models.Failed)
+	assert.Equal(t, models.Failed, status.Status)
 }
 
 type clientMock struct {
