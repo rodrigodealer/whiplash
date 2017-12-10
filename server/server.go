@@ -13,7 +13,7 @@ func Server() http.Handler {
 	conn := &es.EsClient{}
 	conn.Connect()
 
-	mongo := mongo.MongoConnection{}
+	mongo := &mongo.MongoConnection{}
 	mongo.Connect()
 	r := mux.NewRouter()
 	r.HandleFunc("/healthcheck", handlers.HealthcheckHandler(conn, mongo)).Name("/healthcheck").Methods("GET")

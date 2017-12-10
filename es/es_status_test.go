@@ -10,25 +10,25 @@ import (
 
 func TestSuccessfulHealthcheck(t *testing.T) {
 	var services []models.HealthcheckServices
-	var healthcheck = models.HealthcheckStatus{Status: Working, Services: services}
+	var healthcheck = models.HealthcheckStatus{Status: models.Working, Services: services}
 	client := new(clientMock)
 	client.On("Ping").Return(200)
 
 	var status = HealthcheckElasticsearch(services, healthcheck, client)
 
-	assert.Equal(t, status.Status, Working)
+	assert.Equal(t, status.Status, models.Working)
 
 }
 
 func TestFailedHealthcheck(t *testing.T) {
 	var services []models.HealthcheckServices
-	var healthcheck = models.HealthcheckStatus{Status: Working, Services: services}
+	var healthcheck = models.HealthcheckStatus{Status: models.Working, Services: services}
 	client := new(clientMock)
 	client.On("Ping").Return(500)
 
 	var status = HealthcheckElasticsearch(services, healthcheck, client)
 
-	assert.Equal(t, status.Status, Failed)
+	assert.Equal(t, status.Status, models.Failed)
 }
 
 type clientMock struct {

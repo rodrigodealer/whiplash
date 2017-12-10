@@ -6,8 +6,9 @@ import (
 
 func HealthcheckMongoDb(services []models.HealthcheckServices,
 	healthcheck models.HealthcheckStatus,
-	connection MongoConnection) models.HealthcheckStatus {
-	err := connection.Session.Ping()
+	connection MongoDb) models.HealthcheckStatus {
+	connection.Connect()
+	err := connection.Ping()
 	var code = 200
 	var status = models.Working
 	if err != nil {

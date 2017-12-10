@@ -11,10 +11,11 @@ import (
 func TestSuccessfulHealthcheck(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/healthcheck", nil)
 	res := httptest.NewRecorder()
-	client := new(clientMock)
-	client.On("Ping").Return(200)
+	esClient := new(esClientMock)
+	mongoClient := new(mongoClientMock)
+	esClient.On("Ping").Return(200)
 
-	handler := http.HandlerFunc(HealthcheckHandler(client))
+	handler := http.HandlerFunc(HealthcheckHandler(esClient, mongoClient))
 	handler.ServeHTTP(res, req)
 
 	assert.Equal(t, res.Code, 200)
@@ -24,10 +25,11 @@ func TestSuccessfulHealthcheck(t *testing.T) {
 func TestFailedHealthcheck(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/healthcheck", nil)
 	res := httptest.NewRecorder()
-	client := new(clientMock)
-	client.On("Ping").Return(500)
+	esClient := new(esClientMock)
+	mongoClient := new(mongoClientMock)
+	esClient.On("Ping").Return(500)
 
-	handler := http.HandlerFunc(HealthcheckHandler(client))
+	handler := http.HandlerFunc(HealthcheckHandler(esClient, mongoClient))
 	handler.ServeHTTP(res, req)
 
 	assert.Equal(t, res.Code, 500)
