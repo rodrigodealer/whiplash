@@ -20,7 +20,8 @@ type EsClient struct {
 
 func (e *EsClient) Connect() {
 	var url = util.EnvOrElse("ELASTICSEARCH_URL", "http://127.0.0.1:9200")
-	client, err := elastic.NewClient(elastic.SetURL(url), elastic.SetSniff(false), elastic.SetHealthcheckTimeoutStartup(1*time.Second))
+	client, err := elastic.NewClient(elastic.SetURL(url), elastic.SetSniff(false),
+		elastic.SetHealthcheckTimeoutStartup(200*time.Millisecond))
 	if err != nil {
 		log.Panicf("Error trying to connect to ElasticSearch: \n %s \n %s", url, err)
 	} else {

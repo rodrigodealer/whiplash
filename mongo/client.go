@@ -19,7 +19,7 @@ type MongoConnection struct {
 }
 
 func (m *MongoConnection) Connect() {
-	session, err := mgo.DialWithTimeout(util.EnvOrElse("MONGO_HOST", "localhost:27017"), 1*time.Second)
+	session, err := mgo.DialWithTimeout(util.EnvOrElse("MONGO_HOST", "localhost:27017"), 200*time.Millisecond)
 	if err != nil {
 		log.Print("Could not connect to MongoDB:\n", err.Error())
 	}
