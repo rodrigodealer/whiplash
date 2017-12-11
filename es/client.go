@@ -3,7 +3,6 @@ package es
 import (
 	"context"
 	"log"
-	"os"
 	"time"
 
 	"github.com/rodrigodealer/whiplash/util"
@@ -20,7 +19,7 @@ type EsClient struct {
 }
 
 func (e *EsClient) Connect() {
-	var url = util.Config(os.Getenv("ELASTICSEARCH_URL"))
+	var url = util.EnvOrElse("ELASTICSEARCH_URL", "http://127.0.0.1:9200")
 	client, err := elastic.NewClient(elastic.SetURL(url), elastic.SetSniff(false), elastic.SetHealthcheckTimeoutStartup(1*time.Second))
 	if err != nil {
 		log.Panicf("Error trying to connect to ElasticSearch: \n %s \n %s", url, err)
@@ -32,7 +31,7 @@ func (e *EsClient) Connect() {
 func (e *EsClient) Ping() int {
 	if e.Client != nil {
 		ctx := context.Background()
-		var url = util.Config(os.Getenv("ELASTICSEARCH_URL"))
+		var url = util.EnvOrElse("ELASTICSEARCH_URL", "http://127.0.0.1:9200")
 		info, code, _ := e.Client.Ping(url).Do(ctx)
 		if info != nil {
 			log.Printf("Elasticsearch returned with code %d and version %s", code, info.Version.Number)

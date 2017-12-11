@@ -5,6 +5,7 @@ import (
 	"log"
 	"time"
 
+	"github.com/rodrigodealer/whiplash/util"
 	mgo "gopkg.in/mgo.v2"
 )
 
@@ -18,7 +19,7 @@ type MongoConnection struct {
 }
 
 func (m *MongoConnection) Connect() {
-	session, err := mgo.DialWithTimeout("localhost:27017", 1*time.Second)
+	session, err := mgo.DialWithTimeout(util.EnvOrElse("MONGO_HOST", "localhost:27017"), 1*time.Second)
 	if err != nil {
 		log.Print("Could not connect to MongoDB:\n", err.Error())
 	}

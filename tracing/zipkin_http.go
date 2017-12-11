@@ -5,12 +5,11 @@ import (
 
 	opentracing "github.com/opentracing/opentracing-go"
 	zipkin "github.com/openzipkin/zipkin-go-opentracing"
+	"github.com/rodrigodealer/whiplash/util"
 )
 
-const zipkinHTTPEndpoint = "http://127.0.0.1:9411/api/v1/spans"
-
 func StartTracing(server string, service string) {
-	collector, err := zipkin.NewHTTPCollector(zipkinHTTPEndpoint)
+	collector, err := zipkin.NewHTTPCollector(util.EnvOrElse("ZIPKIN_URL", "http://127.0.0.1:9411/api/v1/spans"))
 	if err != nil {
 		log.Printf("unable to create Zipkin HTTP collector: %+v", err)
 	}
